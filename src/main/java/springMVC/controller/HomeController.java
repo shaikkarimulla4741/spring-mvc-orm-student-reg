@@ -33,15 +33,9 @@ public class HomeController {
 
 	@RequestMapping(path = "/submitRegistration", method = RequestMethod.POST)
 	public String formSubmission(@ModelAttribute("sD") StudentDetails sD,
-			@RequestParam("profile") CommonsMultipartFile imgFile, HttpSession s, BindingResult result)
+			@RequestParam("profile") CommonsMultipartFile imgFile, HttpSession s)
 			throws FileNotFoundException, IOException {
 
-//		Checking the for errors.
-//		if (result.hasErrors()) {
-//			m.addAttribute("errors",
-//					"Some fields are missing or contain invalid data. Please review your input and try again.\"");
-//			return "studentRegistration";
-//		}
 
 //		Saving the Image File in the Server.		
 		byte[] imgData = imgFile.getBytes();
@@ -54,11 +48,8 @@ public class HomeController {
 		FileOutputStream fos = new FileOutputStream(path);
 		fos.write(imgData);
 		fos.close();
-//		Now creating the 
-//		System.out.println(path);
 
 //		After receiving all the details saving them in the database.
-
 		this.studentDetailsService.createStudentDetails(sD);
 		System.out.println("Everything has been completed successfully\n");
 
